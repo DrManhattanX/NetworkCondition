@@ -4,7 +4,7 @@ from datetime import datetime
 import time
 
 def loopPing(inputTime,targets):
-    for y in range(0,inputTime):
+    for y in range(0,int(inputTime/2)):
         for curTarget in targets:
             testPing(targets[curTarget],curTarget)
         time.sleep(1)
