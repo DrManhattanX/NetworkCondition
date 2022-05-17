@@ -9,4 +9,4 @@ targets = {
 }
 
 # input time in (even int)seconds to run and targets
-loopPing(60,targets)
+loopPing(10,targets)
