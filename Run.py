@@ -12,7 +12,7 @@ with open('ips.txt','r') as f:
         nameIP = line.split()
         targets[nameIP[0]] = nameIP[1]
 
-inputTime = input("Input Time in seconds.")
+inputTime = input("Input amount of loops(about a second per loop): ")
 
 # input time in (even int)seconds to run and targets
 loopPing(inputTime,targets)
