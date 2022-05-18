@@ -4,20 +4,26 @@ from datetime import datetime
 import time
 import subprocess
 clear = lambda: os.system('cls')
-connectionsLost = 0
 
 def loopPing(inputTime,targets):
-    for y in range(0,int(inputTime/2)):
+    connectionsLost = {
+        "Google": 0,
+    }
+    for curTarget in targets:
+        connectionsLost[curTarget] = 0
+    for y in range(0,int(inputTime)):
         clear()
-        print("loops left " + str(int(inputTime/2) - y))
+        print("loops left " + str(int(inputTime) - y))
         for curTarget in targets:
-            testPing(targets[curTarget],curTarget)
-        time.sleep(1)
+            testPing(targets[curTarget],curTarget,connectionsLost)
+        time.sleep(0.5)
     clear()
-    print("Finished with " + str(connectionsLost) + " connections Failed")
+    print("Below are connections with failures to ping \n")
+    for cur in connectionsLost:
+        print(cur + ": " + connectionsLost[cur] + "\n")
 
 
-def testPing(targetIP,targetName): 
+def testPing(targetIP,targetName,connectionsLost): 
     process = subprocess.Popen(['ping','-n' ,'1', targetIP], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
     returncode = process.returncode
@@ -25,4 +31,4 @@ def testPing(targetIP,targetName):
     if returncode != 0:
         with open("logs.txt", "a") as myfile:
             myfile.write(failure)
-            connectionsLost = connectionsLost + 1
+            connectionsLost[targetName] +=  1
