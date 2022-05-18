@@ -7,20 +7,21 @@ clear = lambda: os.system('cls')
 
 def loopPing(inputTime,targets):
     connectionsLost = {
-        "Google": 0,
     }
     for curTarget in targets:
         connectionsLost[curTarget] = 0
     for y in range(0,int(inputTime)):
         clear()
         print("loops left " + str(int(inputTime) - y))
+        for cur in connectionsLost:
+            print(cur + ": " + str(connectionsLost[cur]))
         for curTarget in targets:
             testPing(targets[curTarget],curTarget,connectionsLost)
         time.sleep(0.5)
     clear()
     print("Below are connections with failures to ping \n")
     for cur in connectionsLost:
-        print(cur + ": " + connectionsLost[cur] + "\n")
+        print(cur + ": " + str(connectionsLost[cur]))
 
 
 def testPing(targetIP,targetName,connectionsLost): 
